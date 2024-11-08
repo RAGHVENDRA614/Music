@@ -12,28 +12,30 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # Updated to version 4
+        uses: actions/checkout@v4
 
       - name: Set up JDK 11
-        uses: actions/setup-java@v4  # Updated to version 4
+        uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'adopt'
 
       - name: Cache Maven dependencies
-        uses: actions/cache@v4  # Updated to version 4
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Build with Maven
         run: mvn install -B
+        working-directory: Music  # Specify the directory containing the pom.xml
 
       - name: Run tests and generate JaCoCo report
         run: mvn jacoco:report
+        working-directory: Music  # Specify the directory containing the pom.xml
 
       - name: Upload JaCoCo report
-        uses: actions/upload-artifact@v4  # Updated to version 4
+        uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: target/site/jacoco/
+          path: Music/target/site/jacoco/  # Adjust the path based on your directory structure
