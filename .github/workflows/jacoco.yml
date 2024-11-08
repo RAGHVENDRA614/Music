@@ -28,14 +28,14 @@ jobs:
 
       - name: Build with Maven
         run: mvn install -B
-        working-directory: Music  # Specify the directory containing the pom.xml
+        working-directory: Music  # Use the correct single directory path
 
       - name: Run tests and generate JaCoCo report
         run: mvn jacoco:report
-        working-directory: Music  # Specify the directory containing the pom.xml
+        working-directory: Music  # Use the correct single directory path
 
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: Music/target/site/jacoco/  # Adjust the path based on your directory structure
+          path: Music/target/site/jacoco/  # Ensure this matches the directory structure
