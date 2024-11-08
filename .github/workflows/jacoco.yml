@@ -27,15 +27,13 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Build with Maven
-        run: mvn install -B
-        working-directory: Music  # Use the correct single directory path
+        run: mvn install -B  # No working-directory needed
 
       - name: Run tests and generate JaCoCo report
-        run: mvn jacoco:report
-        working-directory: Music  # Use the correct single directory path
+        run: mvn jacoco:report  # No working-directory needed
 
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: Music/target/site/jacoco/  # Ensure this matches the directory structure
+          path: target/site/jacoco/  # Adjust path if necessary
